@@ -1,0 +1,31 @@
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+
+# Logs
+*.log
+logs/
+
+# Node (jaga-jaga kalau nanti pakai npm)
+node_modules/
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+
+# Vercel build output
+.vercel/

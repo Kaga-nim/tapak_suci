@@ -1,0 +1,2478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekskul Tapak Suci - Universitas Pamulang</title>
+    <meta name="description" content="Ekstrakurikuler Tapak Suci Universitas Pamulang - Pencak Silat Muhammadiyah">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ekskul Tapak Suci - Universitas Pamulang">
+    <meta property="og:description" content="Ekstrakurikuler Tapak Suci Universitas Pamulang - Pencak Silat Muhammadiyah. Membentuk Karakter, Melatih Fisik, Menguatkan Mental.">
+    <meta property="og:image" content="images/TSU.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#8B0000">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/TSU.png" type="image/png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles CSS -->
+    <style>
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Color Palette */
+            --primary-color: #8B0000;
+            --secondary-color: #DC143C;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+            --accent-color: #ffd700;
+            --text-color: #333;
+            --text-light: #666;
+            --white: #ffffff;
+            --black: #000000;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.15);
+            
+            /* Transitions */
+            --transition-fast: all 0.2s ease;
+            --transition-normal: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            
+            /* Sidebar */
+            --sidebar-width: 280px;
+            --sidebar-collapsed-width: 70px;
+            
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+            padding-left: var(--sidebar-width);
+            transition: padding-left var(--transition-normal);
+            background-color: var(--light-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+            width: 100%;
+        }
+
+        .section {
+            padding: var(--spacing-xl) 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            position: relative;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section:nth-child(even) {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        /* ============================================
+           TYPOGRAPHY IMPROVEMENTS
+           ============================================ */
+
+        h2 {
+            color: var(--primary-color);
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            text-align: center;
+            position: relative;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: var(--spacing-md);
+            font-size: clamp(1rem, 2vw, 1.1rem);
+        }
+
+        /* ============================================
+           SIDEBAR NAVIGATION - IMPROVED
+           ============================================ */
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: linear-gradient(180deg, var(--dark-color) 0%, #1a2530 100%);
+            color: var(--white);
+            z-index: 1000;
+            transition: all var(--transition-normal);
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .sidebar-header {
+            padding: var(--spacing-lg) var(--spacing-md);
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .sidebar-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--spacing-sm);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--accent-color);
+            transition: var(--transition-normal);
+            background: var(--white);
+            padding: 5px;
+        }
+
+        .sidebar-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .sidebar-title {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: var(--spacing-xs);
+            transition: var(--transition-normal);
+            line-height: 1.2;
+        }
+
+        .sidebar-subtitle {
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+            opacity: 0.8;
+            color: var(--accent-color);
+            transition: var(--transition-normal);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: var(--spacing-md);
+            overflow-y: auto;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            color: var(--white);
+            text-decoration: none;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            transition: var(--transition-normal);
+            position: relative;
+            white-space: nowrap;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 15px rgba(139,0,0,0.3);
+        }
+
+        .nav-link i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .nav-text {
+            transition: var(--transition-normal);
+            flex: 1;
+        }
+
+        .sidebar-footer {
+            padding: var(--spacing-md);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .sidebar-footer small {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition-normal);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .mobile-menu-toggle i {
+            font-size: 1.5rem;
+        }
+
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+
+        /* Sidebar collapsed state */
+        .sidebar-collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        .sidebar-collapsed .sidebar-title,
+        .sidebar-collapsed .sidebar-subtitle,
+        .sidebar-collapsed .nav-text {
+            opacity: 0;
+            visibility: hidden;
+            width: 0;
+        }
+
+        .sidebar-collapsed .sidebar-logo {
+            width: 50px;
+            height: 50px;
+        }
+
+        body.sidebar-collapsed {
+            padding-left: var(--sidebar-collapsed-width);
+        }
+
+        /* ============================================
+           HERO SECTION - IMPROVED
+           ============================================ */
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)), 
+                        url('https://images.unsplash.com/photo-1560279968-623c94220e9f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: var(--white);
+            padding: clamp(var(--spacing-xl), 10vh, 6rem) 0;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(139,0,0,0.4), rgba(220,20,60,0.4));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1.5s ease;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            margin-bottom: var(--spacing-md);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            animation: fadeIn 1s ease;
+            color: var(--white);
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.6rem);
+            margin-bottom: var(--spacing-sm);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            opacity: 0.95;
+        }
+
+        .hero-highlight {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            margin-bottom: var(--spacing-md);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .hero-description {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin-bottom: var(--spacing-lg);
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           CARDS SECTION - IMPROVED
+           ============================================ */
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .card {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-normal);
+            border-top: 5px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(139,0,0,0.05));
+            opacity: 0;
+            transition: var(--transition-normal);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: clamp(2.5rem, 5vw, 3rem);
+            margin-bottom: var(--spacing-md);
+            color: var(--secondary-color);
+            transition: var(--transition-normal);
+            height: 80px;
+            width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(139,0,0,0.1);
+            border-radius: 50%;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(139,0,0,0.2);
+        }
+
+        .card-title {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+            font-size: clamp(1.2rem, 2vw, 1.4rem);
+            font-weight: 600;
+        }
+
+        .card-text {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+            flex: 1;
+        }
+
+        /* ============================================
+           COUNTER SECTION - IMPROVED
+           ============================================ */
+
+        .counter-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .counter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .counter-title {
+            color: var(--white);
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        .counter-title::after {
+            background: var(--accent-color);
+        }
+
+        .counter-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+            gap: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        .counter-item {
+            padding: var(--spacing-md);
+        }
+
+        .counter-number {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .counter-label {
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        /* ============================================
+           GALLERY SECTION - IMPROVED
+           ============================================ */
+
+        .gallery-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .gallery-description {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--spacing-xl);
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            margin: var(--spacing-lg) 0;
+            flex-wrap: wrap;
+            padding: 0 var(--spacing-sm);
+        }
+
+        .filter-btn {
+            background: var(--white);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: var(--spacing-xs) var(--spacing-lg);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(139,0,0,0.2);
+            border-color: transparent;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .gallery-item {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-normal);
+            background: var(--white);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-img-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+            background: #f5f5f5;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            padding: var(--spacing-md);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-caption h3 {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-xs);
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            font-weight: 600;
+        }
+
+        .gallery-caption p {
+            color: var(--text-light);
+            font-size: clamp(0.9rem, 1.5vw, 0.95rem);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-sm);
+            flex: 1;
+        }
+
+        .category-tag {
+            margin-top: auto;
+        }
+
+        .category-tag span {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ============================================
+           SCHEDULE SECTION - IMPROVED
+           ============================================ */
+
+        .table-container {
+            overflow-x: auto;
+            margin: var(--spacing-lg) 0;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            background: var(--white);
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: var(--spacing-md);
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+        }
+
+        .schedule-table th {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .schedule-table tr {
+            transition: var(--transition-fast);
+        }
+
+        .schedule-table tr:hover {
+            background: rgba(139,0,0,0.05);
+        }
+
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .schedule-note {
+            text-align: center;
+            margin-top: var(--spacing-lg);
+            color: var(--text-light);
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            padding: var(--spacing-md);
+            background: rgba(139,0,0,0.05);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        /* ============================================
+           BUTTONS - IMPROVED
+           ============================================ */
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: clamp(var(--spacing-md), 2vw, var(--spacing-lg)) clamp(var(--spacing-xl), 3vw, 2.5rem);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition-normal);
+            box-shadow: 0 6px 15px rgba(139,0,0,0.3);
+            border: none;
+            cursor: pointer;
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            min-height: 54px;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition-slow);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(139,0,0,0.4);
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            box-shadow: 0 6px 15px rgba(37,211,102,0.3);
+        }
+
+        .whatsapp-btn:hover {
+            box-shadow: 0 10px 25px rgba(37,211,102,0.4);
+        }
+
+        /* ============================================
+           FOOTER - IMPROVED
+           ============================================ */
+
+        footer {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #1a2530 100%);
+            color: var(--white);
+            padding: var(--spacing-xl) 0 var(--spacing-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .footer-title {
+            color: var(--white);
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            display: inline-block;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: var(--transition-normal);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .contact-card h4 {
+            color: var(--accent-color);
+            margin-bottom: var(--spacing-sm);
+            font-size: clamp(1.1rem, 2vw, 1.2rem);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-card a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition-fast);
+            font-size: clamp(1rem, 1.8vw, 1.1rem);
+            font-weight: 500;
+        }
+
+        .contact-card a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        .contact-note {
+            margin-top: var(--spacing-xs);
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition-normal);
+            font-size: 1.2rem;
+        }
+
+        .social-icon:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px) rotate(10deg);
+        }
+
+        .footer-divider {
+            margin: var(--spacing-xl) auto;
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+        }
+
+        .copyright {
+            margin-bottom: var(--spacing-sm);
+            font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+            opacity: 0.8;
+        }
+
+        .footer-motto {
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            color: var(--accent-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================
+           BACK TO TOP BUTTON
+           ============================================ */
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 900;
+            box-shadow: var(--shadow-md);
+            border: none;
+            font-size: 1.2rem;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ============================================
+           LIGHTBOX - IMPROVED
+           ============================================ */
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            animation: lightboxFadeIn 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-img {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            display: block;
+            background: #f5f5f5;
+        }
+
+        .lightbox-info {
+            padding: var(--spacing-md);
+            text-align: center;
+            background: var(--white);
+        }
+
+        .lightbox-info h3 {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-xs);
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+        }
+
+        .lightbox-info p {
+            color: var(--text-light);
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 1101;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-close:hover {
+            background: var(--secondary-color);
+            transform: rotate(90deg);
+        }
+
+        .empty-gallery {
+            grid-column: 1/-1;
+            padding: 40px;
+            text-align: center;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .empty-gallery i {
+            font-size: 4rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes lightboxFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN - IMPROVED
+           ============================================ */
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: var(--sidebar-collapsed-width);
+            }
+            
+            body {
+                padding-left: var(--sidebar-collapsed-width);
+            }
+            
+            .sidebar .sidebar-title,
+            .sidebar .sidebar-subtitle,
+            .sidebar .nav-text {
+                opacity: 0;
+                visibility: hidden;
+                width: 0;
+            }
+            
+            .sidebar .sidebar-logo {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .sidebar:hover {
+                width: var(--sidebar-width);
+            }
+            
+            .sidebar:hover .sidebar-title,
+            .sidebar:hover .sidebar-subtitle,
+            .sidebar:hover .nav-text {
+                opacity: 1;
+                visibility: visible;
+                width: auto;
+            }
+            
+            .sidebar:hover .sidebar-logo {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                background-attachment: scroll;
+            }
+            
+            .cards-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+            
+            body {
+                padding-left: 0;
+            }
+            
+            .sidebar.sidebar-open {
+                transform: translateX(0);
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .sidebar-overlay {
+                display: block;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity var(--transition-normal), visibility var(--transition-normal);
+            }
+            
+            .sidebar-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .hero-title {
+                font-size: clamp(1.8rem, 5vw, 2.2rem);
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+            
+            .counter-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+                padding: var(--spacing-sm) var(--spacing-md);
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+            
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+            
+            .section {
+                padding: var(--spacing-lg) 0;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .counter-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content {
+                padding: var(--spacing-md);
+            }
+            
+            .hero-description br {
+                display: none;
+            }
+            
+            .gallery-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 100%;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .schedule-table {
+                font-size: 0.85rem;
+                min-width: 500px;
+            }
+            
+            .schedule-table th,
+            .schedule-table td {
+                padding: var(--spacing-sm);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-highlight {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .card {
+                padding: var(--spacing-md);
+            }
+            
+            .card-icon {
+                height: 60px;
+                width: 60px;
+                font-size: 2rem;
+            }
+            
+            .footer-motto {
+                flex-direction: column;
+                gap: var(--spacing-xs);
+            }
+        }
+
+        /* ============================================
+           UTILITY CLASSES
+           ============================================ */
+
+        .center-text {
+            text-align: center;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* ============================================
+           IMAGE FALLBACK STYLES
+           ============================================ */
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .gallery-img-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 70%, rgba(0,0,0,0.1));
+            opacity: 0;
+            transition: var(--transition-normal);
+        }
+
+        .gallery-item:hover .gallery-img-container::after {
+            opacity: 1;
+        }
+
+        /* Loading state for images */
+        .gallery-img.loading {
+            opacity: 0;
+        }
+
+        .gallery-img.loaded {
+            opacity: 1;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* ============================================
+           PERBAIKAN KHUSUS - TAMBAHAN CSS
+           ============================================ */
+
+        /* Section description text */
+        .section-description {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--spacing-xl);
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Category tag background colors by category */
+        .gallery-item[data-category="latihan"] .category-tag span {
+            background: #2196F3;
+        }
+        .gallery-item[data-category="event"] .category-tag span {
+            background: #FF9800;
+        }
+        .gallery-item[data-category="prestasi"] .category-tag span {
+            background: #4CAF50;
+        }
+        .category-tag span {
+            background: var(--primary-color);
+        }
+
+        /* Touch action for interactive elements - prevents 300ms tap delay on mobile */
+        button, a, .filter-btn, .gallery-item, .nav-link {
+            touch-action: manipulation;
+        }
+
+        /* Fix WhatsApp button centering */
+        #kontak .container {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+        }
+
+        #waButton {
+            margin: 20px auto !important;
+            display: inline-flex !important;
+        }
+
+        .contact-action {
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            margin: var(--spacing-xl) 0 !important;
+        }
+
+        .contact-alternative {
+            color: var(--text-light);
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            margin-top: var(--spacing-sm);
+        }
+
+        /* Fix counter section text visibility */
+        .counter-title {
+            color: white !important;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
+        }
+
+        .counter-title::after {
+            background: #ffd700 !important;
+        }
+
+        /* Sidebar hover dihandle oleh SidebarManager di JS */
+    </style>
+</head>
+<body>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="images/TSU.png" alt="Logo Tapak Suci" loading="lazy">
+            </div>
+            <h3 class="sidebar-title">Tapak Suci UNPAM</h3>
+            <p class="sidebar-subtitle">Pencak Silat Muhammadiyah</p>
+        </div>
+        
+        <div class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="#home" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Beranda</span>
+                </a></li>
+                <li><a href="#tentang" class="nav-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="nav-text">Tentang</span>
+                </a></li>
+                <li><a href="#manfaat" class="nav-link">
+                    <i class="fas fa-heart"></i>
+                    <span class="nav-text">Manfaat</span>
+                </a></li>
+                <li><a href="#counter" class="nav-link">
+                    <i class="fas fa-trophy"></i>
+                    <span class="nav-text">Prestasi</span>
+                </a></li>
+                <li><a href="#galeri" class="nav-link">
+                    <i class="fas fa-images"></i>
+                    <span class="nav-text">Galeri</span>
+                </a></li>
+                <li><a href="#jadwal" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Jadwal</span>
+                </a></li>
+                <li><a href="#kontak" class="nav-link">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="nav-text">Daftar</span>
+                </a></li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-footer">
+            <small>Tapak Suci UNPAM © <span id="currentYearFooter">2024</span></small>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container hero-content">
+                <h1 class="hero-title">Selamat Datang di Tapak Suci</h1>
+                <p class="hero-subtitle">Bergabunglah dengan Ekstrakurikuler Tapak Suci Universitas Pamulang</p>
+                <p class="hero-highlight">Membentuk Karakter, Melatih Fisik, Menguatkan Mental</p>
+                <p class="hero-description">Menjadi bagian dari tradisi bela diri Indonesia yang bermartabat dan berakhlak mulia. Bersama kami, raih prestasi dan bangun jaringan persaudaraan yang luas.</p>
+                <a href="#kontak" class="cta-button">
+                    <i class="fas fa-user-plus"></i> Daftar Sekarang
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="tentang" class="section">
+            <div class="container">
+                <h2>Tentang Tapak Suci</h2>
+                <p class="section-description">
+                    Tapak Suci adalah seni bela diri asli Indonesia yang berakar dari tradisi Muhammadiyah sejak 1963.
+                    Di Universitas Pamulang, ekstrakurikuler ini tidak hanya mengajarkan teknik bela diri yang efektif,
+                    tetapi juga membentuk karakter disiplin, tanggung jawab, dan nilai-nilai Islami pada setiap anggotanya.
+                    Kami berkomitmen melahirkan generasi yang tangguh secara fisik, kuat secara mental, dan mulia secara akhlak.
+                </p>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section id="manfaat" class="section">
+            <div class="container">
+                <h2>Manfaat Bergabung</h2>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-fist-raised"></i></div>
+                        <h3 class="card-title">Teknik Bela Diri</h3>
+                        <p class="card-text">Mempelajari teknik-teknik bela diri Pencak Silat Tapak Suci yang efektif untuk membela diri dengan prinsip kebenaran</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-running"></i></div>
+                        <h3 class="card-title">Kebugaran Fisik</h3>
+                        <p class="card-text">Meningkatkan stamina, kekuatan, kelenturan, dan kesehatan tubuh melalui latihan rutin yang terprogram</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-brain"></i></div>
+                        <h3 class="card-title">Mental Kuat</h3>
+                        <p class="card-text">Membentuk mental yang tangguh, disiplin, fokus, percaya diri, dan pantang menyerah dalam menghadapi tantangan</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                        <h3 class="card-title">Persaudaraan</h3>
+                        <p class="card-text">Membangun persahabatan, kekeluargaan, dan jaringan yang luas dengan sesama anggota dari berbagai angkatan</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-trophy"></i></div>
+                        <h3 class="card-title">Prestasi</h3>
+                        <p class="card-text">Kesempatan mengikuti kompetisi lokal, regional, dan nasional untuk meraih prestasi membanggakan</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-star-and-crescent"></i></div>
+                        <h3 class="card-title">Nilai Islami</h3>
+                        <p class="card-text">Menanamkan nilai-nilai akhlak mulia, kejujuran, tanggung jawab, dan spiritualitas berdasarkan ajaran Islam</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Counter Section -->
+        <section id="counter" class="counter-section section">
+            <div class="container">
+                <h2 class="counter-title">Prestasi Kami</h2>
+                <div class="counter-container">
+                    <div class="counter-item">
+                        <div class="counter-number" data-count="150">0</div>
+                        <div class="counter-label">Anggota Aktif</div>
+                    </div>
+                    <div class="counter-item">
+                        <div class="counter-number" data-count="25">0</div>
+                        <div class="counter-label">Pelatih Berpengalaman</div>
+                    </div>
+                    <div class="counter-item">
+                        <div class="counter-number" data-count="50">0</div>
+                        <div class="counter-label">Prestasi Kejuaraan</div>
+                    </div>
+                    <div class="counter-item">
+                        <div class="counter-number" data-count="8">0</div>
+                        <div class="counter-label">Tahun Berdiri</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="galeri" class="gallery-section section">
+            <div class="container">
+                <h2>Galeri Kegiatan</h2>
+                <p class="gallery-description">
+                    Dokumentasi kegiatan, latihan, event, dan prestasi Ekstrakurikuler Tapak Suci Universitas Pamulang
+                </p>
+                
+                <div class="gallery-controls">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-th-large"></i> Semua
+                    </button>
+                    <button class="filter-btn" data-filter="latihan">
+                        <i class="fas fa-dumbbell"></i> Latihan
+                    </button>
+                    <button class="filter-btn" data-filter="event">
+                        <i class="fas fa-calendar-alt"></i> Event
+                    </button>
+                    <button class="filter-btn" data-filter="prestasi">
+                        <i class="fas fa-award"></i> Prestasi
+                    </button>
+                </div>
+                
+                <div class="gallery" id="imageGallery">
+                    <!-- Images will be loaded by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule Section -->
+        <section id="jadwal" class="section">
+            <div class="container">
+                <h2>Jadwal Latihan</h2>
+                <div class="table-container">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Hari</th>
+                                <th>Waktu</th>
+                                <th>Tempat</th>
+                                <th>Materi</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Rabu</strong></td>
+                                <td>15.30 - Selesai</td>
+                                <td>Gedung Dakwah PDM Tangsel</td>
+                                <td>Latihan Sunnah Mingguan</td>
+                                <td>Teknik Dasar & Senam</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sabtu</strong></td>
+                                <td>13.00 - Selesai</td>
+                                <td>Gedung Dakwah PDM Tangsel</td>
+                                <td>Latihan Sunnah Mingguan</td>
+                                <td>Latihan Bebanan & Stamina</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Minggu</strong></td>
+                                <td>15.30 - Selesai</td>
+                                <td>Gedung Dakwah PDM Tangsel</td>
+                                <td>Latihan Wajib Mingguan</td>
+                                <td>Teknik Lanjutan & Sparring</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="schedule-note">
+                    <i class="fas fa-info-circle"></i> 
+                    Setiap latihan diawali dengan pemanasan dan diakhiri dengan pendinginan. 
+                    Peserta diwajibkan menggunakan seragam Tapak Suci yang lengkap.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="kontak" class="section">
+            <div class="container">
+                <h2>Tertarik Bergabung?</h2>
+                <p class="section-description">
+                    Jangan ragu untuk bergabung dengan kami! Daftarkan diri Anda sekarang dan jadilah bagian dari keluarga besar Tapak Suci Universitas Pamulang.
+                    Raih prestasi, tingkatkan kemampuan, dan bangun karakter bersama kami.
+                </p>
+
+                <div class="contact-action">
+                    <a href="https://wa.me/6282361120152?text=Halo%20saya%20tertarik%20bergabung%20dengan%20Tapak%20Suci%20UNPAM" class="cta-button whatsapp-btn" target="_blank" rel="noopener" id="waButton">
+                        <i class="fab fa-whatsapp"></i> Daftar via WhatsApp
+                    </a>
+                    <p class="contact-alternative">
+                        Atau hubungi kami melalui kontak di bawah ini ↓
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <h3 class="footer-title">Hubungi Kami</h3>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <h4><i class="fab fa-whatsapp"></i> WhatsApp</h4>
+                        <p><a href="https://wa.me/6282361120152?text=Halo%20saya%20ingin%20bertanya%20tentang%20Tapak%20Suci%20UNPAM" target="_blank" rel="noopener">Pelatih: Dodi</a></p>
+                        <p class="contact-note">Klik untuk chat langsung</p>
+                    </div>
+                    <div class="contact-card">
+                        <h4><i class="fab fa-instagram"></i> Instagram</h4>
+                        <p><a href="https://www.instagram.com/tapaksuciunpam" target="_blank" rel="noopener">@tapaksuciunpam</a></p>
+                        <p class="contact-note">Follow untuk update terbaru</p>
+                    </div>
+                    <div class="contact-card">
+                        <h4><i class="fas fa-map-marker-alt"></i> Lokasi Latihan</h4>
+                        <p><a href="https://maps.app.goo.gl/dmH2pUGfxE4pHm487" target="_blank" rel="noopener">Gedung Dakwah PDM Tangsel</a></p>
+                        <p class="contact-note">Klik untuk petunjuk arah</p>
+                    </div>
+                </div>
+                
+                <div class="footer-divider"></div>
+                
+                <div class="footer-bottom">
+                    <p class="copyright">© <span id="currentYear">2024</span> Ekstrakurikuler Tapak Suci Universitas Pamulang. Hak Cipta Dilindungi.</p>
+                    <p class="footer-motto">
+                        <i class="fas fa-heart"></i> Membentuk Generasi Berakhlak Mulia dan Berprestasi
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-labelledby="lightboxTitle">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Tutup lightbox">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="lightbox-content">
+            <img class="lightbox-img" id="lightboxImg" src="" alt="" loading="lazy">
+            <div class="lightbox-info">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxDesc"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // ============================================
+        // GLOBAL VARIABLES & DATA
+        // ============================================
+
+        const galleryImages = [
+            {
+                id: 1,
+                filename: "1.jpg",
+                title: "Latihan Rutin Mingguan",
+                description: "Anggota Tapak Suci berlatih teknik dasar Pencak Silat di Gedung Dakwah PDM Tangsel.",
+                category: "latihan"
+            },
+            {
+                id: 2,
+                filename: "2.jpg",
+                title: "Latihan Bersama",
+                description: "Latihan Akbar dengan Pondok Pesantren Al-Fatah, Lampung.",
+                category: "event"
+            },
+            {
+                id: 3,
+                filename: "3.jpg",
+                title: "Ujian Kenaikan Tingkat",
+                description: "Ujian Kenaikan Tingkat (UKT) yang dilaksanakan rutin untuk penilaian kemampuan anggota.",
+                category: "event"
+            },
+            {
+                id: 4,
+                filename: "4.jpg",
+                title: "Latihan Kekuatan dan Stamina",
+                description: "Latihan fisik untuk meningkatkan kekuatan, stamina, dan kelincahan anggota.",
+                category: "latihan"
+            },
+            {
+                id: 5,
+                filename: "5.jpg",
+                title: "Prestasi di Kejuaraan Daerah",
+                description: "Perolehan medali emas pada kejuaraan Pencak Silat tingkat regional.",
+                category: "prestasi"
+            },
+            {
+                id: 6,
+                filename: "6.jpg",
+                title: "Latihan Teknik Senjata",
+                description: "Pengenalan dan latihan teknik dasar menggunakan senjata tradisional silat.",
+                category: "latihan"
+            },
+            {
+                id: 7,
+                filename: "7.jpg",
+                title: "Seminar Bela Diri",
+                description: "Seminar tentang filosofi dan aplikasi bela diri dalam kehidupan sehari-hari.",
+                category: "event"
+            },
+            {
+                id: 8,
+                filename: "8.jpg",
+                title: "Prestasi Nasional",
+                description: "Penghargaan yang diraih di kejuaraan nasional Pencak Silat Tapak Suci.",
+                category: "prestasi"
+            },
+            {
+                id: 9,
+                filename: "9.jpg",
+                title: "Latihan Kelenturan",
+                description: "Latihan kelenturan tubuh untuk mendukung teknik bela diri yang efektif.",
+                category: "latihan"
+            },
+            {
+                id: 10,
+                filename: "10.jpg",
+                title: "Kegiatan Sosial",
+                description: "Anggota Tapak Suci berpartisipasi dalam kegiatan sosial kemasyarakatan.",
+                category: "event"
+            }
+        ];
+
+        // Fallback images jika gambar lokal tidak ditemukan
+        const fallbackImages = [
+            'https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1545389336-cf5738d1f9e8?ixlib=rb-1.2.1&auto=format&fit=crop&w-600&q=80',
+            'https://images.unsplash.com/photo-1547891654-e66ed7ebb968?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'
+        ];
+
+        // ============================================
+        // SIDEBAR MANAGEMENT - DIPERBAIKI
+        // ============================================
+
+        class SidebarManager {
+            constructor() {
+                this.sidebar = document.getElementById('sidebar');
+                this.mobileMenuToggle = document.getElementById('mobileMenuToggle');
+                this.sidebarOverlay = document.getElementById('sidebarOverlay');
+                this.navLinks = document.querySelectorAll('.nav-link');
+                this.isMobile = window.innerWidth <= 768;
+                this.expandHandler = null;
+                this.collapseHandler = null;
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.setupResponsiveBehavior();
+            }
+
+            setupEventListeners() {
+                // Toggle sidebar on mobile
+                this.mobileMenuToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.toggleSidebar();
+                });
+                
+                // Close sidebar when clicking overlay
+                this.sidebarOverlay.addEventListener('click', () => {
+                    this.closeSidebar();
+                });
+                
+                // Close sidebar when clicking a nav link (on mobile)
+                this.navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (this.isMobile) {
+                            this.closeSidebar();
+                        }
+                    });
+                });
+            }
+
+            setupResponsiveBehavior() {
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    this.isMobile = window.innerWidth <= 768;
+                    
+                    if (!this.isMobile) {
+                        this.closeSidebar();
+                        this.setupDesktopHover();
+                    } else {
+                        this.removeDesktopHover();
+                    }
+                });
+
+                // Initial setup
+                if (!this.isMobile) {
+                    this.setupDesktopHover();
+                }
+            }
+
+            setupDesktopHover() {
+                // Hapus event listener lama jika ada
+                this.removeDesktopHover();
+                
+                let sidebarTimeout;
+                
+                const expand = () => {
+                    clearTimeout(sidebarTimeout);
+                    this.expandSidebar();
+                };
+                
+                const collapse = () => {
+                    sidebarTimeout = setTimeout(() => {
+                        if (!this.isMobile) {
+                            this.collapseSidebar();
+                        }
+                    }, 300);
+                };
+                
+                this.sidebar.addEventListener('mouseenter', expand);
+                this.sidebar.addEventListener('mouseleave', collapse);
+                
+                // Simpan reference untuk bisa dihapus nanti
+                this.expandHandler = expand;
+                this.collapseHandler = collapse;
+            }
+
+            removeDesktopHover() {
+                if (this.expandHandler && this.collapseHandler) {
+                    this.sidebar.removeEventListener('mouseenter', this.expandHandler);
+                    this.sidebar.removeEventListener('mouseleave', this.collapseHandler);
+                }
+            }
+
+            toggleSidebar() {
+                this.sidebar.classList.toggle('sidebar-open');
+                this.sidebarOverlay.classList.toggle('active');
+                document.body.style.overflow = this.sidebar.classList.contains('sidebar-open') ? 'hidden' : '';
+            }
+
+            closeSidebar() {
+                this.sidebar.classList.remove('sidebar-open');
+                this.sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            expandSidebar() {
+                this.sidebar.style.width = 'var(--sidebar-width)';
+                this.sidebar.querySelectorAll('.sidebar-title, .sidebar-subtitle, .nav-text').forEach(el => {
+                    el.style.opacity = '1';
+                    el.style.visibility = 'visible';
+                    el.style.width = 'auto';
+                });
+                this.sidebar.querySelector('.sidebar-logo').style.width = '80px';
+                this.sidebar.querySelector('.sidebar-logo').style.height = '80px';
+            }
+
+            collapseSidebar() {
+                if (!this.isMobile) {
+                    this.sidebar.style.width = 'var(--sidebar-collapsed-width)';
+                    this.sidebar.querySelectorAll('.sidebar-title, .sidebar-subtitle, .nav-text').forEach(el => {
+                        el.style.opacity = '0';
+                        el.style.visibility = 'hidden';
+                        el.style.width = '0';
+                    });
+                    const logo = this.sidebar.querySelector('.sidebar-logo');
+                    if (logo) {
+                        logo.style.width = '50px';
+                        logo.style.height = '50px';
+                    }
+                }
+            }
+        }
+
+        // ============================================
+        // GALLERY MANAGER
+        // ============================================
+
+        class GalleryManager {
+            constructor() {
+                this.galleryContainer = document.getElementById('imageGallery');
+                this.filterButtons = document.querySelectorAll('.filter-btn');
+                this.currentFilter = 'all';
+                this.init();
+            }
+
+            init() {
+                this.displayImages(galleryImages);
+                this.setupEventListeners();
+            }
+
+            displayImages(images) {
+                if (!this.galleryContainer) return;
+                
+                this.galleryContainer.innerHTML = '';
+                
+                if (images.length === 0) {
+                    this.galleryContainer.innerHTML = this.createNoImagesMessage();
+                    return;
+                }
+                
+                images.forEach(image => {
+                    const galleryItem = this.createGalleryItem(image);
+                    this.galleryContainer.appendChild(galleryItem);
+                    this.lazyLoadImage(galleryItem.querySelector('.gallery-img'));
+                });
+            }
+
+            createGalleryItem(image) {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.setAttribute('data-category', image.category);
+                galleryItem.setAttribute('data-id', image.id);
+                
+                galleryItem.innerHTML = `
+                    <div class="gallery-img-container">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999' font-family='Arial, sans-serif' font-size='16'%3ELoading...%3C/text%3E%3C/svg%3E" 
+                             data-src="images/${image.filename}" 
+                             alt="${image.title}" 
+                             class="gallery-img loading">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>${image.title}</h3>
+                        <p>${image.description}</p>
+                        <div class="category-tag">
+                            <span>${this.getCategoryName(image.category)}</span>
+                        </div>
+                    </div>
+                `;
+                
+                galleryItem.addEventListener('click', () => this.openLightbox(image));
+                
+                return galleryItem;
+            }
+
+            lazyLoadImage(imgElement) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            const src = img.getAttribute('data-src');
+                            
+                            img.onload = () => {
+                                img.classList.remove('loading');
+                                img.classList.add('loaded');
+                            };
+                            
+                            img.onerror = () => {
+                                // Use fallback image if local image fails to load
+                                const randomFallback = fallbackImages[Math.floor(Math.random() * fallbackImages.length)];
+                                img.src = randomFallback;
+                                img.classList.remove('loading');
+                                img.classList.add('loaded');
+                            };
+                            
+                            img.src = src;
+                            observer.unobserve(img);
+                        }
+                    });
+                }, {
+                    rootMargin: '50px',
+                    threshold: 0.1
+                });
+                
+                observer.observe(imgElement);
+            }
+
+            createNoImagesMessage() {
+                return `
+                    <div class="empty-gallery">
+                        <i class="fas fa-image"></i>
+                        <h3>Tidak ada gambar yang ditemukan</h3>
+                        <p>Silakan pilih kategori lain</p>
+                    </div>
+                `;
+            }
+
+            getCategoryName(category) {
+                const categories = {
+                    'latihan': 'Latihan',
+                    'event': 'Event',
+                    'prestasi': 'Prestasi'
+                };
+                return categories[category] || 'Lainnya';
+            }
+
+            filterGallery(category) {
+                this.currentFilter = category;
+                
+                // Update active button
+                this.filterButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.filter === category);
+                });
+                
+                if (category === 'all') {
+                    this.displayImages(galleryImages);
+                } else {
+                    const filteredImages = galleryImages.filter(image => image.category === category);
+                    this.displayImages(filteredImages);
+                }
+                
+                // Scroll to gallery after filtering
+                setTimeout(() => {
+                    document.getElementById('galeri').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+
+            setupEventListeners() {
+                this.filterButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        this.filterGallery(button.dataset.filter);
+                    });
+                });
+            }
+
+            openLightbox(image) {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightboxImg');
+                const lightboxTitle = document.getElementById('lightboxTitle');
+                const lightboxDesc = document.getElementById('lightboxDesc');
+                
+                lightboxImg.src = `images/${image.filename}`;
+                lightboxImg.alt = image.title;
+                lightboxTitle.textContent = image.title;
+                lightboxDesc.textContent = image.description;
+                
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                lightbox.setAttribute('aria-hidden', 'false');
+            }
+        }
+
+        // ============================================
+        // COUNTER ANIMATION
+        // ============================================
+
+        class CounterAnimation {
+            constructor() {
+                this.counters = document.querySelectorAll('.counter-number');
+                this.speed = 200;
+                this.init();
+            }
+
+            init() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.animate();
+                            observer.unobserve(entry.target.closest('.counter-section'));
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                const counterSection = document.getElementById('counter');
+                if (counterSection) {
+                    observer.observe(counterSection);
+                }
+            }
+
+            animate() {
+                this.counters.forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-count'));
+                    const count = parseInt(counter.textContent);
+                    const increment = target / this.speed;
+                    
+                    const updateCounter = () => {
+                        const currentCount = parseInt(counter.textContent);
+                        if (currentCount < target) {
+                            counter.textContent = Math.ceil(currentCount + increment);
+                            setTimeout(updateCounter, 1);
+                        } else {
+                            counter.textContent = target;
+                        }
+                    };
+                    
+                    updateCounter();
+                });
+            }
+        }
+
+        // ============================================
+        // SCROLL MANAGER
+        // ============================================
+
+        class ScrollManager {
+            constructor() {
+                this.sections = document.querySelectorAll('.section');
+                this.navLinks = document.querySelectorAll('.nav-link');
+                this.backToTopButton = document.getElementById('backToTop');
+                this.init();
+            }
+
+            init() {
+                this.checkScroll();
+                window.addEventListener('scroll', () => this.checkScroll());
+            }
+
+            checkScroll() {
+                this.checkSectionVisibility();
+                this.updateBackToTopButton();
+                this.updateActiveNavigation();
+            }
+
+            checkSectionVisibility() {
+                const windowHeight = window.innerHeight;
+                const scrollY = window.scrollY || window.pageYOffset;
+                
+                this.sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (scrollY > sectionTop - windowHeight + 100) {
+                        section.classList.add('visible');
+                    }
+                });
+            }
+
+            updateBackToTopButton() {
+                if (!this.backToTopButton) return;
+                
+                const scrollY = window.scrollY || window.pageYOffset;
+                this.backToTopButton.classList.toggle('visible', scrollY > 500);
+            }
+
+            updateActiveNavigation() {
+                const scrollY = window.scrollY || window.pageYOffset;
+                let currentSection = '';
+                
+                this.sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                this.navLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    link.classList.toggle('active', href === `#${currentSection}`);
+                });
+            }
+
+            setupSmoothScrolling() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function(e) {
+                        const targetId = this.getAttribute('href');
+                        
+                        if (targetId !== '#' && targetId !== '#!') {
+                            e.preventDefault();
+                            const targetElement = document.querySelector(targetId);
+                            
+                            if (targetElement) {
+                                window.scrollTo({
+                                    top: targetElement.offsetTop - 80,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
+                    });
+                });
+            }
+        }
+
+        // ============================================
+        // LIGHTBOX MANAGER
+        // ============================================
+
+        class LightboxManager {
+            constructor() {
+                this.lightbox = document.getElementById('lightbox');
+                this.lightboxClose = document.getElementById('lightboxClose');
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                this.lightboxClose.addEventListener('click', () => this.close());
+                this.lightbox.addEventListener('click', (e) => {
+                    if (e.target === this.lightbox) this.close();
+                });
+                
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.lightbox.classList.contains('active')) {
+                        this.close();
+                    }
+                });
+            }
+
+            close() {
+                this.lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+                this.lightbox.setAttribute('aria-hidden', 'true');
+            }
+        }
+
+        // ============================================
+        // QUICK FIXES - PERBAIKAN KHUSUS
+        // ============================================
+
+        // Fix: Center WhatsApp button
+        const centerWhatsAppButton = () => {
+            const waButton = document.getElementById('waButton');
+            const contactAction = document.querySelector('.contact-action');
+            
+            if (contactAction) {
+                contactAction.style.display = 'flex';
+                contactAction.style.flexDirection = 'column';
+                contactAction.style.alignItems = 'center';
+                contactAction.style.justifyContent = 'center';
+                contactAction.style.textAlign = 'center';
+            }
+            
+            if (waButton) {
+                waButton.style.display = 'inline-flex';
+                waButton.style.margin = '0 auto';
+            }
+        };
+
+        // ============================================
+        // MAIN APP INITIALIZATION
+        // ============================================
+
+        class App {
+            constructor() {
+                this.sidebarManager = null;
+                this.galleryManager = null;
+                this.counterAnimation = null;
+                this.scrollManager = null;
+                this.lightboxManager = null;
+                this.init();
+            }
+
+            init() {
+                // Set current year
+                this.setCurrentYear();
+                
+                // Initialize all components
+                this.initializeComponents();
+                
+                // Setup remaining event listeners
+                this.setupEventListeners();
+                
+                // Preload important images
+                this.preloadImages();
+                
+                // Apply quick fixes
+                setTimeout(() => {
+                    centerWhatsAppButton();
+                }, 100);
+                
+                console.log("Website Tapak Suci UNPAM telah dimuat dengan sukses! 🥋");
+            }
+
+            setCurrentYear() {
+                const year = new Date().getFullYear();
+                document.getElementById('currentYear').textContent = year;
+                document.getElementById('currentYearFooter').textContent = year;
+            }
+
+            initializeComponents() {
+                this.sidebarManager = new SidebarManager();
+                this.galleryManager = new GalleryManager();
+                this.counterAnimation = new CounterAnimation();
+                this.scrollManager = new ScrollManager();
+                this.lightboxManager = new LightboxManager();
+                
+                // Setup smooth scrolling
+                this.scrollManager.setupSmoothScrolling();
+            }
+
+            setupEventListeners() {
+                // WhatsApp button hover effect
+                const waButton = document.getElementById('waButton');
+                if (waButton) {
+                    waButton.addEventListener('mouseenter', function() {
+                        this.innerHTML = `<i class="fab fa-whatsapp"></i> Chat Sekarang`;
+                    });
+                    
+                    waButton.addEventListener('mouseleave', function() {
+                        this.innerHTML = `<i class="fab fa-whatsapp"></i> Daftar via WhatsApp`;
+                    });
+                }
+                
+                // Back to top button
+                const backToTop = document.getElementById('backToTop');
+                if (backToTop) {
+                    backToTop.addEventListener('click', () => {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    });
+                }
+            }
+
+            preloadImages() {
+                const imagesToPreload = [
+                    'images/TSU.png'
+                ];
+                
+                imagesToPreload.forEach(src => {
+                    const img = new Image();
+                    img.src = src;
+                });
+            }
+        }
+
+        // Initialize the app when DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new App();
+        });
+
+        // Handle page load errors
+        window.addEventListener('error', (e) => {
+            console.error('Error occurred:', e.error);
+        }, true);
+
+        // Handle image loading errors globally
+        document.addEventListener('error', (e) => {
+            if (e.target.tagName === 'IMG') {
+                const randomFallback = fallbackImages[Math.floor(Math.random() * fallbackImages.length)];
+                e.target.src = randomFallback;
+                e.target.onerror = null; // Prevent infinite loop
+            }
+        }, true);
+    </script>
+</body>
+</html>
