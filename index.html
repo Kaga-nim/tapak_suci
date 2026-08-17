@@ -496,7 +496,7 @@
            ============================================ */
 
         .counter-section {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
             color: var(--white);
             padding: var(--spacing-xl) 0;
             text-align: center;
@@ -1156,45 +1156,7 @@
            RESPONSIVE DESIGN - IMPROVED
            ============================================ */
 
-        @media (max-width: 1200px) {
-            .sidebar {
-                width: var(--sidebar-collapsed-width);
-            }
-            
-            body {
-                padding-left: var(--sidebar-collapsed-width);
-            }
-            
-            .sidebar .sidebar-title,
-            .sidebar .sidebar-subtitle,
-            .sidebar .nav-text {
-                opacity: 0;
-                visibility: hidden;
-                width: 0;
-            }
-            
-            .sidebar .sidebar-logo {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .sidebar:hover {
-                width: var(--sidebar-width);
-            }
-            
-            .sidebar:hover .sidebar-title,
-            .sidebar:hover .sidebar-subtitle,
-            .sidebar:hover .nav-text {
-                opacity: 1;
-                visibility: visible;
-                width: auto;
-            }
-            
-            .sidebar:hover .sidebar-logo {
-                width: 80px;
-                height: 80px;
-            }
-        }
+        /* Sidebar selalu terbuka penuh di desktop (≥769px) */
 
         @media (max-width: 992px) {
             .hero {
@@ -1981,19 +1943,11 @@
                 // Handle window resize
                 window.addEventListener('resize', () => {
                     this.isMobile = window.innerWidth <= 768;
-                    
                     if (!this.isMobile) {
                         this.closeSidebar();
-                        this.setupDesktopHover();
-                    } else {
-                        this.removeDesktopHover();
                     }
                 });
-
-                // Initial setup
-                if (!this.isMobile) {
-                    this.setupDesktopHover();
-                }
+                // Desktop: sidebar always stays open, no hover collapse
             }
 
             setupDesktopHover() {
