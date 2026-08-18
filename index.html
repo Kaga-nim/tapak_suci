@@ -188,8 +188,6 @@
             overflow: hidden;
             border: 3px solid var(--accent-color);
             transition: var(--transition-normal);
-            background: var(--white);
-            padding: 5px;
         }
 
         .sidebar-logo img {
@@ -1196,8 +1194,39 @@
             }
 
             .sidebar.sidebar-open .sidebar-logo {
-                width: 80px !important;
-                height: 80px !important;
+                width: 60px !important;
+                height: 60px !important;
+            }
+
+            /* Padatkan sidebar mobile agar tidak perlu scroll */
+            .sidebar-header {
+                padding: 0.75rem var(--spacing-sm);
+            }
+
+            .sidebar-title {
+                font-size: 0.95rem;
+            }
+
+            .sidebar-nav {
+                padding: 0.5rem 0.6rem;
+            }
+
+            .nav-list {
+                gap: 0.15rem;
+            }
+
+            .nav-link {
+                padding: 0.55rem 0.75rem;
+                gap: 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .nav-link i {
+                font-size: 1.05rem;
+            }
+
+            .sidebar-footer {
+                padding: 0.5rem var(--spacing-sm);
             }
 
             .mobile-menu-toggle {
@@ -1230,9 +1259,34 @@
                 display: none;
             }
 
+            /* Manfaat: 2 kolom di mobile, dari 6 baris → 3 baris */
             .cards-container {
-                grid-template-columns: 1fr;
-                gap: var(--spacing-md);
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+                margin-top: 0.5rem;
+            }
+
+            .card {
+                padding: 0.75rem 0.6rem;
+                border-top-width: 3px;
+            }
+
+            .card-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 1.4rem;
+                margin-bottom: 0.4rem;
+                border-radius: 10px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+                margin-bottom: 4px;
+            }
+
+            .card-text {
+                font-size: 0.78rem;
+                line-height: 1.45;
             }
 
             .counter-container {
@@ -1261,12 +1315,13 @@
 
             /* Section padding lebih compact di mobile */
             .section {
-                padding: var(--spacing-md) 0;
+                padding: 1rem 0;
             }
 
             h2 {
-                font-size: 1.6rem;
-                margin-bottom: var(--spacing-md);
+                font-size: 1.5rem;
+                margin-bottom: 0.75rem;
+                padding-bottom: 0.5rem;
             }
 
             .cta-button {
@@ -1508,6 +1563,41 @@
         }
 
         /* Sidebar hover dihandle oleh SidebarManager di JS */
+
+        /* ============================================
+           SHOW MORE BUTTON - GALERI
+           ============================================ */
+
+        .show-more-container {
+            display: flex;
+            justify-content: center;
+            margin-top: var(--spacing-lg);
+        }
+
+        .show-more-btn {
+            background: var(--white);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: var(--spacing-sm) var(--spacing-xl);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: clamp(0.95rem, 1.5vw, 1rem);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-normal);
+            touch-action: manipulation;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .show-more-btn:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(139,0,0,0.25);
+        }
     </style>
 </head>
 <body>
@@ -1527,7 +1617,6 @@
                 <img src="images/TSU.png" alt="Logo Tapak Suci" loading="lazy">
             </div>
             <h3 class="sidebar-title">Tapak Suci UNPAM</h3>
-            <p class="sidebar-subtitle">Pencak Silat Muhammadiyah</p>
         </div>
         
         <div class="sidebar-nav">
@@ -1668,20 +1757,7 @@
                     Dokumentasi kegiatan, latihan, event, dan prestasi Ekstrakurikuler Tapak Suci Universitas Pamulang
                 </p>
                 
-                <div class="gallery-controls">
-                    <button class="filter-btn active" data-filter="all">
-                        <i class="fas fa-th-large"></i> Semua
-                    </button>
-                    <button class="filter-btn" data-filter="latihan">
-                        <i class="fas fa-dumbbell"></i> Latihan
-                    </button>
-                    <button class="filter-btn" data-filter="event">
-                        <i class="fas fa-calendar-alt"></i> Event
-                    </button>
-                    <button class="filter-btn" data-filter="prestasi">
-                        <i class="fas fa-award"></i> Prestasi
-                    </button>
-                </div>
+                <!-- Filter hanya tersedia di gallery.html -->
                 
                 <div class="gallery" id="imageGallery">
                     <!-- Images will be loaded by JavaScript -->
@@ -1729,10 +1805,9 @@
                         </tbody>
                     </table>
                 </div>
-                <p class="schedule-note">
-                    <i class="fas fa-info-circle"></i> 
-                    Setiap latihan diawali dengan pemanasan dan diakhiri dengan pendinginan. 
-                    Peserta diwajibkan menggunakan seragam Tapak Suci yang lengkap.
+                <p class="schedule-note" id="scheduleNote">
+                    <i class="fas fa-info-circle"></i>
+                    Datang aja langsung, kita welcome untuk semua yang mau belajar! Bawa semangat dan pakaian olahraga yang nyaman.
                 </p>
             </div>
         </section>
@@ -1764,17 +1839,17 @@
                 <div class="contact-grid">
                     <div class="contact-card">
                         <h4><i class="fab fa-whatsapp"></i> WhatsApp</h4>
-                        <p><a href="https://wa.me/6282361120152?text=Halo%20saya%20ingin%20bertanya%20tentang%20Tapak%20Suci%20UNPAM" target="_blank" rel="noopener">Pelatih: Dodi</a></p>
+                        <p><a id="footerWaLink" href="https://wa.me/6282361120152?text=Halo%20saya%20ingin%20bertanya%20tentang%20Tapak%20Suci%20UNPAM" target="_blank" rel="noopener">Pelatih: Dodi</a></p>
                         <p class="contact-note">Klik untuk chat langsung</p>
                     </div>
                     <div class="contact-card">
                         <h4><i class="fab fa-instagram"></i> Instagram</h4>
-                        <p><a href="https://www.instagram.com/tapaksuciunpam" target="_blank" rel="noopener">@tapaksuciunpam</a></p>
+                        <p><a id="igLink" href="https://www.instagram.com/tapaksuciunpam" target="_blank" rel="noopener">@tapaksuciunpam</a></p>
                         <p class="contact-note">Follow untuk update terbaru</p>
                     </div>
                     <div class="contact-card">
                         <h4><i class="fas fa-map-marker-alt"></i> Lokasi Latihan</h4>
-                        <p><a href="https://maps.app.goo.gl/dmH2pUGfxE4pHm487" target="_blank" rel="noopener">Gedung Dakwah PDM Tangsel</a></p>
+                        <p><a id="lokasiLink" href="https://maps.app.goo.gl/dmH2pUGfxE4pHm487" target="_blank" rel="noopener">Gedung Dakwah PDM Tangsel</a></p>
                         <p class="contact-note">Klik untuk petunjuk arah</p>
                     </div>
                 </div>
@@ -1785,6 +1860,9 @@
                     <p class="copyright">© <span id="currentYear">2024</span> Ekstrakurikuler Tapak Suci Universitas Pamulang. Hak Cipta Dilindungi.</p>
                     <p class="footer-motto">
                         <i class="fas fa-heart"></i> Membentuk Generasi Berakhlak Mulia dan Berprestasi
+                    </p>
+                    <p style="margin-top:0.5rem;font-size:0.72rem;opacity:0.4">
+                        <a href="admin.html" style="color:inherit;text-decoration:none"><i class="fas fa-lock"></i> Admin</a>
                     </p>
                 </div>
             </div>
@@ -2033,25 +2111,51 @@
                 this.galleryContainer = document.getElementById('imageGallery');
                 this.filterButtons = document.querySelectorAll('.filter-btn');
                 this.currentFilter = 'all';
+                this.showAll = false;
+                this.PREVIEW_COUNT = 4;
                 this.init();
             }
 
             init() {
+                this.createShowMoreButton();
                 this.displayImages(galleryImages);
                 this.setupEventListeners();
             }
 
+            createShowMoreButton() {
+                this.showMoreContainer = document.createElement('div');
+                this.showMoreContainer.className = 'show-more-container';
+                this.showMoreContainer.innerHTML = `
+                    <a href="gallery.html" class="show-more-btn" id="showMoreBtn">
+                        <i class="fas fa-images"></i> Lihat Semua Foto (${galleryImages.length})
+                    </a>
+                `;
+                this.galleryContainer.parentNode.insertBefore(
+                    this.showMoreContainer,
+                    this.galleryContainer.nextSibling
+                );
+            }
+
             displayImages(images) {
                 if (!this.galleryContainer) return;
-                
+
                 this.galleryContainer.innerHTML = '';
-                
-                if (images.length === 0) {
+
+                // Batasi 4 foto di view "Semua", kategori tampil semua
+                let imagesToShow = images;
+                if (this.currentFilter === 'all' && !this.showAll && images.length > this.PREVIEW_COUNT) {
+                    imagesToShow = images.slice(0, this.PREVIEW_COUNT);
+                    this.showMoreContainer.style.display = 'flex';
+                } else {
+                    this.showMoreContainer.style.display = 'none';
+                }
+
+                if (imagesToShow.length === 0) {
                     this.galleryContainer.innerHTML = this.createNoImagesMessage();
                     return;
                 }
-                
-                images.forEach(image => {
+
+                imagesToShow.forEach(image => {
                     const galleryItem = this.createGalleryItem(image);
                     this.galleryContainer.appendChild(galleryItem);
                     this.lazyLoadImage(galleryItem.querySelector('.gallery-img'));
@@ -2138,12 +2242,13 @@
 
             filterGallery(category) {
                 this.currentFilter = category;
-                
+                this.showAll = false; // reset saat ganti filter
+
                 // Update active button
                 this.filterButtons.forEach(btn => {
                     btn.classList.toggle('active', btn.dataset.filter === category);
                 });
-                
+
                 if (category === 'all') {
                     this.displayImages(galleryImages);
                 } else {
@@ -2464,8 +2569,78 @@
             }
         }
 
+        // ===== APPLY ADMIN DATA FROM LOCALSTORAGE =====
+        function applyAdminData() {
+            // Prestasi counters
+            try {
+                const saved = localStorage.getItem('ts_prestasi');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    const nums = document.querySelectorAll('.counter-number');
+                    const labels = document.querySelectorAll('.counter-label');
+                    data.forEach((item, i) => {
+                        if (nums[i]) { nums[i].setAttribute('data-count', item.count); nums[i].textContent = '0'; }
+                        if (labels[i]) labels[i].textContent = item.label;
+                    });
+                }
+            } catch(e) {}
+
+            // Gallery
+            try {
+                const saved = localStorage.getItem('ts_gallery');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    galleryImages.splice(0, galleryImages.length, ...data);
+                }
+            } catch(e) {}
+
+            // Jadwal
+            try {
+                const saved = localStorage.getItem('ts_jadwal');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    const tbody = document.querySelector('.schedule-table tbody');
+                    if (tbody) {
+                        tbody.innerHTML = data.map(r => `<tr>
+                            <td><strong>${r.hari}</strong></td>
+                            <td>${r.waktu}</td><td>${r.tempat}</td>
+                            <td>${r.materi}</td><td>${r.keterangan}</td>
+                        </tr>`).join('');
+                    }
+                }
+            } catch(e) {}
+
+            // Kontak
+            try {
+                const saved = localStorage.getItem('ts_kontak');
+                if (saved) {
+                    const d = JSON.parse(saved);
+                    const enc = s => encodeURIComponent(s || '');
+                    const waBtn = document.getElementById('waButton');
+                    if (waBtn && d.wa_number) waBtn.href = `https://wa.me/${d.wa_number}?text=${enc(d.wa_msg)}`;
+                    const footerWa = document.getElementById('footerWaLink');
+                    if (footerWa && d.wa_number) {
+                        footerWa.href = `https://wa.me/${d.wa_number}?text=${enc('Halo saya ingin bertanya tentang Tapak Suci UNPAM')}`;
+                        if (d.wa_name) footerWa.textContent = d.wa_name;
+                    }
+                    const igLink = document.getElementById('igLink');
+                    if (igLink && d.instagram) { igLink.href = `https://www.instagram.com/${d.instagram}`; igLink.textContent = '@' + d.instagram; }
+                    const lokasiLink = document.getElementById('lokasiLink');
+                    if (lokasiLink) {
+                        if (d.maps_link) lokasiLink.href = d.maps_link;
+                        if (d.lokasi) lokasiLink.textContent = d.lokasi;
+                    }
+                    if (d.schedule_note) {
+                        const note = document.getElementById('scheduleNote');
+                        if (note) note.innerHTML = `<i class="fas fa-info-circle"></i> ${d.schedule_note}`;
+                    }
+                }
+            } catch(e) {}
+        }
+
         // Initialize the app when DOM is fully loaded
         document.addEventListener('DOMContentLoaded', () => {
+            applyAdminData();
             new App();
         });
 

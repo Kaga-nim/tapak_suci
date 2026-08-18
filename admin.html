@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — Tapak Suci UNPAM</title>
+    <link rel="icon" href="images/TSU.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --red: #8B0000;
+            --red2: #DC143C;
+            --dark: #1a1a2e;
+            --dark2: #16213e;
+            --card: #0f3460;
+            --white: #fff;
+            --light: #f0f4f8;
+            --border: rgba(255,255,255,0.12);
+            --text: #e0e6ed;
+            --text2: #a0aec0;
+            --success: #48bb78;
+            --warn: #ed8936;
+            --danger: #fc5c7d;
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ===== LOGIN PAGE ===== */
+        #loginPage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 1rem;
+        }
+
+        .login-box {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 0.75rem;
+        }
+
+        .login-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--red2), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.25rem;
+        }
+
+        .login-sub {
+            font-size: 0.8rem;
+            color: var(--text2);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text2);
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap i {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text2);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 0.9rem 0.75rem 2.4rem;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--red2);
+            background: rgba(255,255,255,0.12);
+            box-shadow: 0 0 0 3px rgba(220,20,60,0.2);
+        }
+
+        .form-input::placeholder { color: rgba(255,255,255,0.3); }
+
+        .btn-login {
+            width: 100%;
+            padding: 0.85rem;
+            background: linear-gradient(135deg, var(--red), var(--red2));
+            border: none;
+            border-radius: var(--radius);
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(139,0,0,0.4); }
+        .btn-login:active { transform: translateY(0); }
+
+        .login-error {
+            display: none;
+            background: rgba(252,92,125,0.15);
+            border: 1px solid rgba(252,92,125,0.4);
+            border-radius: 8px;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.82rem;
+            color: var(--danger);
+            margin-top: 0.75rem;
+            text-align: left;
+        }
+
+        /* ===== ADMIN DASHBOARD ===== */
+        #adminPage { display: none; }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--dark2), #0a0a1a);
+            border-bottom: 1px solid var(--border);
+            padding: 0 1.5rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .header-brand img { width: 36px; height: 36px; object-fit: contain; }
+
+        .header-brand-text h1 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.2;
+        }
+
+        .header-brand-text span {
+            font-size: 0.72rem;
+            color: var(--text2);
+        }
+
+        .header-actions { display: flex; gap: 0.75rem; align-items: center; }
+
+        .btn-preview {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 1rem;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.82rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-preview:hover { background: rgba(255,255,255,0.15); color: var(--white); }
+
+        .btn-logout {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 1rem;
+            background: rgba(252,92,125,0.15);
+            border: 1px solid rgba(252,92,125,0.3);
+            border-radius: 8px;
+            color: var(--danger);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-logout:hover { background: rgba(252,92,125,0.25); }
+
+        .admin-body {
+            display: flex;
+            min-height: calc(100vh - 64px);
+        }
+
+        /* ===== SIDEBAR ADMIN ===== */
+        .admin-sidebar {
+            width: 220px;
+            background: var(--dark2);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem 0;
+            flex-shrink: 0;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 0 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.7rem 1.2rem;
+            color: var(--text2);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            font-size: 0.9rem;
+        }
+
+        .admin-nav-item:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+
+        .admin-nav-item.active {
+            color: var(--white);
+            background: rgba(220,20,60,0.12);
+            border-left-color: var(--red2);
+        }
+
+        .admin-nav-item i { width: 18px; text-align: center; font-size: 0.9rem; }
+
+        /* ===== MAIN CONTENT ===== */
+        .admin-main {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            background: var(--dark);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .page-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .page-header h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .page-header p { font-size: 0.85rem; color: var(--text2); }
+
+        /* ===== CARDS ===== */
+        .admin-card {
+            background: var(--dark2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .admin-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .admin-card-header h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .admin-card-header h3 i { color: var(--red2); }
+
+        /* ===== FORM ELEMENTS ===== */
+        .field-group {
+            margin-bottom: 0.9rem;
+        }
+
+        .field-label {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text2);
+            margin-bottom: 0.35rem;
+            font-weight: 500;
+        }
+
+        .field-input, .field-select, .field-textarea {
+            width: 100%;
+            padding: 0.6rem 0.85rem;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.88rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .field-input:focus, .field-select:focus, .field-textarea:focus {
+            border-color: var(--red2);
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 0 0 3px rgba(220,20,60,0.15);
+        }
+
+        .field-input::placeholder, .field-textarea::placeholder { color: rgba(255,255,255,0.25); }
+
+        .field-select option { background: #1a1a2e; color: var(--white); }
+
+        .field-textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+
+        .field-row {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .field-row.cols-2 { grid-template-columns: 1fr 1fr; }
+        .field-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.55rem 1.1rem;
+            border-radius: 8px;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--red), var(--red2));
+            color: var(--white);
+        }
+
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(139,0,0,0.35); }
+
+        .btn-success {
+            background: rgba(72,187,120,0.15);
+            border: 1px solid rgba(72,187,120,0.35);
+            color: var(--success);
+        }
+
+        .btn-success:hover { background: rgba(72,187,120,0.25); }
+
+        .btn-danger {
+            background: rgba(252,92,125,0.12);
+            border: 1px solid rgba(252,92,125,0.3);
+            color: var(--danger);
+        }
+
+        .btn-danger:hover { background: rgba(252,92,125,0.22); }
+
+        .btn-ghost {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            color: var(--text2);
+        }
+
+        .btn-ghost:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+
+        .btn-sm { padding: 0.35rem 0.7rem; font-size: 0.78rem; }
+
+        /* ===== COUNTER GRID ===== */
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .counter-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .counter-card-label {
+            font-size: 0.75rem;
+            color: var(--text2);
+            margin-bottom: 0.4rem;
+        }
+
+        .counter-num-input {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--red2);
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 0.4rem;
+        }
+
+        /* ===== GALLERY GRID ===== */
+        .gallery-admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .gallery-admin-item {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .gallery-admin-item:hover { border-color: rgba(220,20,60,0.4); }
+
+        .gallery-admin-img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            display: block;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .gallery-admin-body { padding: 0.75rem; }
+
+        .gallery-admin-filename {
+            font-size: 0.72rem;
+            color: var(--text2);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* ===== TABLE ===== */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .admin-table th {
+            background: rgba(255,255,255,0.06);
+            color: var(--text2);
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 0.7rem 0.85rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .admin-table td {
+            padding: 0.65rem 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            vertical-align: middle;
+        }
+
+        .admin-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+        .admin-table td input, .admin-table td select {
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.5rem;
+            width: 100%;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .admin-table td input:focus, .admin-table td select:focus {
+            border-color: var(--red2);
+            background: rgba(255,255,255,0.06);
+        }
+
+        .admin-table td select option { background: #1a1a2e; }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+            min-width: 240px;
+        }
+
+        .toast-success {
+            background: rgba(72,187,120,0.15);
+            border: 1px solid rgba(72,187,120,0.4);
+            color: var(--success);
+        }
+
+        .toast-error {
+            background: rgba(252,92,125,0.15);
+            border: 1px solid rgba(252,92,125,0.4);
+            color: var(--danger);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ===== BADGE ===== */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.55rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .badge-latihan { background: rgba(66,153,225,0.2); color: #63b3ed; }
+        .badge-event { background: rgba(237,137,54,0.2); color: #fbb360; }
+        .badge-prestasi { background: rgba(72,187,120,0.2); color: #68d391; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .admin-sidebar { display: none; }
+            .admin-main { padding: 1rem; }
+            .field-row.cols-2, .field-row.cols-3 { grid-template-columns: 1fr; }
+            .counter-grid { grid-template-columns: 1fr 1fr; }
+            .gallery-admin-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            .counter-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== LOGIN PAGE ===== -->
+<div id="loginPage">
+    <div class="login-box">
+        <img src="images/TSU.png" alt="Logo" class="login-logo" onerror="this.style.display='none'">
+        <div class="login-title">Admin Panel</div>
+        <div class="login-sub">Tapak Suci — Universitas Pamulang</div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Username</label>
+                <div class="input-wrap">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="form-input" id="username" placeholder="Username" autocomplete="username" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-wrap">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" class="form-input" id="password" placeholder="Password" autocomplete="current-password" required>
+                </div>
+            </div>
+            <button type="submit" class="btn-login">
+                <i class="fas fa-sign-in-alt"></i> Masuk
+            </button>
+            <div class="login-error" id="loginError">
+                <i class="fas fa-exclamation-circle"></i> Username atau password salah.
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ===== ADMIN DASHBOARD ===== -->
+<div id="adminPage">
+    <header class="admin-header">
+        <div class="header-brand">
+            <img src="images/TSU.png" alt="Logo" onerror="this.style.display='none'">
+            <div class="header-brand-text">
+                <h1>Admin Panel</h1>
+                <span>Tapak Suci UNPAM</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="index.html" target="_blank" class="btn-preview">
+                <i class="fas fa-external-link-alt"></i> Lihat Website
+            </a>
+            <button class="btn-logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Keluar
+            </button>
+        </div>
+    </header>
+
+    <div class="admin-body">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div style="padding: 0 1.2rem 0.75rem;">
+                <div class="sidebar-section-title">Menu Utama</div>
+            </div>
+            <div class="admin-nav-item active" onclick="switchTab('prestasi', this)">
+                <i class="fas fa-trophy"></i> Prestasi Kami
+            </div>
+            <div class="admin-nav-item" onclick="switchTab('galeri', this)">
+                <i class="fas fa-images"></i> Galeri Foto
+            </div>
+            <div class="admin-nav-item" onclick="switchTab('jadwal', this)">
+                <i class="fas fa-calendar-alt"></i> Jadwal Latihan
+            </div>
+            <div class="admin-nav-item" onclick="switchTab('kontak', this)">
+                <i class="fas fa-address-book"></i> Kontak
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+
+            <!-- ===== TAB: PRESTASI ===== -->
+            <div class="tab-content active" id="tab-prestasi">
+                <div class="page-header">
+                    <h2><i class="fas fa-trophy" style="color:var(--red2)"></i> Prestasi Kami</h2>
+                    <p>Edit angka dan label statistik yang tampil di section Prestasi Kami.</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <h3><i class="fas fa-sort-numeric-up"></i> Angka Statistik</h3>
+                        <div style="display:flex;gap:0.5rem">
+                            <button class="btn btn-ghost btn-sm" onclick="resetPrestasi()">
+                                <i class="fas fa-undo"></i> Reset Default
+                            </button>
+                            <button class="btn btn-primary btn-sm" onclick="savePrestasi()">
+                                <i class="fas fa-save"></i> Simpan
+                            </button>
+                        </div>
+                    </div>
+                    <div class="counter-grid" id="prestasiGrid">
+                        <!-- dirender oleh JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== TAB: GALERI ===== -->
+            <div class="tab-content" id="tab-galeri">
+                <div class="page-header">
+                    <h2><i class="fas fa-images" style="color:var(--red2)"></i> Galeri Foto</h2>
+                    <p>Edit judul, deskripsi, dan kategori setiap foto.</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <h3><i class="fas fa-photo-video"></i> Daftar Foto (10)</h3>
+                        <div style="display:flex;gap:0.5rem">
+                            <button class="btn btn-ghost btn-sm" onclick="resetGaleri()">
+                                <i class="fas fa-undo"></i> Reset Default
+                            </button>
+                            <button class="btn btn-primary btn-sm" onclick="saveGaleri()">
+                                <i class="fas fa-save"></i> Simpan Semua
+                            </button>
+                        </div>
+                    </div>
+                    <div class="gallery-admin-grid" id="galeriGrid">
+                        <!-- dirender oleh JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== TAB: JADWAL ===== -->
+            <div class="tab-content" id="tab-jadwal">
+                <div class="page-header">
+                    <h2><i class="fas fa-calendar-alt" style="color:var(--red2)"></i> Jadwal Latihan</h2>
+                    <p>Tambah, edit, atau hapus baris jadwal latihan.</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <h3><i class="fas fa-table"></i> Tabel Jadwal</h3>
+                        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+                            <button class="btn btn-ghost btn-sm" onclick="resetJadwal()">
+                                <i class="fas fa-undo"></i> Reset Default
+                            </button>
+                            <button class="btn btn-success btn-sm" onclick="addJadwalRow()">
+                                <i class="fas fa-plus"></i> Tambah Baris
+                            </button>
+                            <button class="btn btn-primary btn-sm" onclick="saveJadwal()">
+                                <i class="fas fa-save"></i> Simpan
+                            </button>
+                        </div>
+                    </div>
+                    <div style="overflow-x:auto">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Hari</th>
+                                    <th>Waktu</th>
+                                    <th>Tempat</th>
+                                    <th>Materi</th>
+                                    <th>Keterangan</th>
+                                    <th style="width:50px"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="jadwalBody">
+                                <!-- dirender oleh JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== TAB: KONTAK ===== -->
+            <div class="tab-content" id="tab-kontak">
+                <div class="page-header">
+                    <h2><i class="fas fa-address-book" style="color:var(--red2)"></i> Kontak</h2>
+                    <p>Edit informasi kontak yang tampil di website.</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <h3><i class="fab fa-whatsapp"></i> WhatsApp Pelatih</h3>
+                    </div>
+                    <div class="field-row cols-2">
+                        <div class="field-group">
+                            <label class="field-label">Nomor WA (tanpa +, misal: 6282361120152)</label>
+                            <input type="text" class="field-input" id="k_wa_number" placeholder="6282361120152">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Nama Pelatih</label>
+                            <input type="text" class="field-input" id="k_wa_name" placeholder="Pelatih: Dodi">
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Pesan Default WhatsApp</label>
+                        <input type="text" class="field-input" id="k_wa_msg" placeholder="Halo saya tertarik bergabung...">
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <h3><i class="fas fa-share-alt"></i> Sosial Media & Lokasi</h3>
+                    </div>
+                    <div class="field-row cols-2">
+                        <div class="field-group">
+                            <label class="field-label">Instagram (tanpa @)</label>
+                            <input type="text" class="field-input" id="k_instagram" placeholder="tapaksuciunpam">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Nama Lokasi Latihan</label>
+                            <input type="text" class="field-input" id="k_lokasi" placeholder="Gedung Dakwah PDM Tangsel">
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Link Google Maps</label>
+                        <input type="text" class="field-input" id="k_maps" placeholder="https://maps.app.goo.gl/...">
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <h3><i class="fas fa-info-circle"></i> Catatan Jadwal</h3>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Teks catatan di bawah tabel jadwal</label>
+                        <textarea class="field-textarea" id="k_schedule_note" rows="3" placeholder="Setiap latihan diawali dengan pemanasan..."></textarea>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:0.75rem;margin-top:0.5rem">
+                    <button class="btn btn-ghost" onclick="resetKontak()">
+                        <i class="fas fa-undo"></i> Reset Default
+                    </button>
+                    <button class="btn btn-primary" onclick="saveKontak()">
+                        <i class="fas fa-save"></i> Simpan Perubahan
+                    </button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ===== CREDENTIALS =====
+const CREDS = { username: 'dodi', password: 'admin123' };
+const SESSION_KEY = 'ts_admin_session';
+
+// ===== DEFAULT DATA =====
+const DEFAULT_PRESTASI = [
+    { count: 150, label: 'Anggota Aktif' },
+    { count: 25,  label: 'Pelatih Berpengalaman' },
+    { count: 50,  label: 'Prestasi Kejuaraan' },
+    { count: 8,   label: 'Tahun Berdiri' }
+];
+
+const DEFAULT_GALLERY = [
+    { id: 1, filename: '1.jpg', title: 'Latihan Rutin Mingguan', description: 'Anggota Tapak Suci berlatih teknik dasar Pencak Silat di Gedung Dakwah PDM Tangsel.', category: 'latihan' },
+    { id: 2, filename: '2.jpg', title: 'Latihan Bersama', description: 'Latihan Akbar dengan Pondok Pesantren Al-Fatah, Lampung.', category: 'event' },
+    { id: 3, filename: '3.jpg', title: 'Ujian Kenaikan Tingkat', description: 'Ujian Kenaikan Tingkat (UKT) yang dilaksanakan rutin untuk penilaian kemampuan anggota.', category: 'event' },
+    { id: 4, filename: '4.jpg', title: 'Latihan Kekuatan dan Stamina', description: 'Latihan fisik untuk meningkatkan kekuatan, stamina, dan kelincahan anggota.', category: 'latihan' },
+    { id: 5, filename: '5.jpg', title: 'Prestasi di Kejuaraan Daerah', description: 'Perolehan medali emas pada kejuaraan Pencak Silat tingkat regional.', category: 'prestasi' },
+    { id: 6, filename: '6.jpg', title: 'Latihan Teknik Senjata', description: 'Pengenalan dan latihan teknik dasar menggunakan senjata tradisional silat.', category: 'latihan' },
+    { id: 7, filename: '7.jpg', title: 'Seminar Bela Diri', description: 'Seminar tentang filosofi dan aplikasi bela diri dalam kehidupan sehari-hari.', category: 'event' },
+    { id: 8, filename: '8.jpg', title: 'Prestasi Nasional', description: 'Penghargaan yang diraih di kejuaraan nasional Pencak Silat Tapak Suci.', category: 'prestasi' },
+    { id: 9, filename: '9.jpg', title: 'Latihan Kelenturan', description: 'Latihan kelenturan tubuh untuk mendukung teknik bela diri yang efektif.', category: 'latihan' },
+    { id: 10, filename: '10.jpg', title: 'Kegiatan Sosial', description: 'Anggota Tapak Suci berpartisipasi dalam kegiatan sosial kemasyarakatan.', category: 'event' }
+];
+
+const DEFAULT_JADWAL = [
+    { hari: 'Rabu',   waktu: '15.30 - Selesai', tempat: 'Gedung Dakwah PDM Tangsel', materi: 'Latihan Sunnah Mingguan', keterangan: 'Teknik Dasar & Senam' },
+    { hari: 'Sabtu',  waktu: '13.00 - Selesai', tempat: 'Gedung Dakwah PDM Tangsel', materi: 'Latihan Sunnah Mingguan', keterangan: 'Latihan Bebanan & Stamina' },
+    { hari: 'Minggu', waktu: '15.30 - Selesai', tempat: 'Gedung Dakwah PDM Tangsel', materi: 'Latihan Wajib Mingguan', keterangan: 'Teknik Lanjutan & Sparring' }
+];
+
+const DEFAULT_KONTAK = {
+    wa_number: '6282361120152',
+    wa_name: 'Pelatih: Dodi',
+    wa_msg: 'Halo saya tertarik bergabung dengan Tapak Suci UNPAM',
+    instagram: 'tapaksuciunpam',
+    lokasi: 'Gedung Dakwah PDM Tangsel',
+    maps_link: 'https://maps.app.goo.gl/dmH2pUGfxE4pHm487',
+    schedule_note: 'Setiap latihan diawali dengan pemanasan dan diakhiri dengan pendinginan. Peserta diwajibkan menggunakan seragam Tapak Suci yang lengkap.'
+};
+
+// ===== AUTH =====
+function checkSession() {
+    return sessionStorage.getItem(SESSION_KEY) === 'true';
+}
+
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value;
+    const err = document.getElementById('loginError');
+
+    if (u === CREDS.username && p === CREDS.password) {
+        sessionStorage.setItem(SESSION_KEY, 'true');
+        err.style.display = 'none';
+        showAdmin();
+    } else {
+        err.style.display = 'block';
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
+    }
+});
+
+function showAdmin() {
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('adminPage').style.display = 'block';
+    loadAllData();
+}
+
+function logout() {
+    sessionStorage.removeItem(SESSION_KEY);
+    document.getElementById('loginPage').style.display = 'flex';
+    document.getElementById('adminPage').style.display = 'none';
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+}
+
+// ===== TAB SWITCHING =====
+function switchTab(name, el) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    el.classList.add('active');
+}
+
+// ===== TOAST =====
+function showToast(msg, type = 'success') {
+    const c = document.getElementById('toastContainer');
+    const t = document.createElement('div');
+    t.className = 'toast toast-' + type;
+    t.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${msg}`;
+    c.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
+}
+
+// ===== LOAD ALL =====
+function loadAllData() {
+    renderPrestasi();
+    renderGaleri();
+    renderJadwal();
+    renderKontak();
+}
+
+// ===== PRESTASI =====
+function getPrestasi() {
+    try { return JSON.parse(localStorage.getItem('ts_prestasi')) || DEFAULT_PRESTASI; }
+    catch { return DEFAULT_PRESTASI; }
+}
+
+function renderPrestasi() {
+    const data = getPrestasi();
+    const grid = document.getElementById('prestasiGrid');
+    grid.innerHTML = data.map((item, i) => `
+        <div class="counter-card">
+            <div class="counter-card-label">Label #${i + 1}</div>
+            <input class="counter-num-input" type="number" id="p_count_${i}" value="${item.count}" min="0">
+            <input class="field-input" type="text" id="p_label_${i}" value="${item.label}" placeholder="Label..." style="font-size:0.82rem">
+        </div>
+    `).join('');
+}
+
+function savePrestasi() {
+    const data = getPrestasi().map((_, i) => ({
+        count: parseInt(document.getElementById('p_count_' + i).value) || 0,
+        label: document.getElementById('p_label_' + i).value.trim() || _.label
+    }));
+    localStorage.setItem('ts_prestasi', JSON.stringify(data));
+    showToast('Data Prestasi berhasil disimpan!');
+}
+
+function resetPrestasi() {
+    if (!confirm('Reset data Prestasi ke nilai awal?')) return;
+    localStorage.removeItem('ts_prestasi');
+    renderPrestasi();
+    showToast('Data Prestasi direset ke default.', 'success');
+}
+
+// ===== GALERI =====
+function getGaleri() {
+    try { return JSON.parse(localStorage.getItem('ts_gallery')) || DEFAULT_GALLERY; }
+    catch { return DEFAULT_GALLERY; }
+}
+
+const BADGE_MAP = { latihan: 'badge-latihan', event: 'badge-event', prestasi: 'badge-prestasi' };
+
+function renderGaleri() {
+    const data = getGaleri();
+    const grid = document.getElementById('galeriGrid');
+    grid.innerHTML = data.map((img, i) => `
+        <div class="gallery-admin-item">
+            <img class="gallery-admin-img" src="images/${img.filename}" alt="${img.title}"
+                 onerror="this.src='https://via.placeholder.com/200x130/1a1a2e/ffffff?text=${img.filename}'">
+            <div class="gallery-admin-body">
+                <div class="gallery-admin-filename">
+                    <i class="fas fa-file-image"></i> ${img.filename}
+                </div>
+                <div class="field-group" style="margin-bottom:0.5rem">
+                    <label class="field-label">Judul</label>
+                    <input class="field-input" type="text" id="g_title_${i}" value="${img.title}" placeholder="Judul foto..." style="font-size:0.8rem;padding:0.45rem 0.7rem">
+                </div>
+                <div class="field-group" style="margin-bottom:0.5rem">
+                    <label class="field-label">Deskripsi</label>
+                    <textarea class="field-textarea" id="g_desc_${i}" rows="2" style="font-size:0.8rem;padding:0.45rem 0.7rem;min-height:50px">${img.description}</textarea>
+                </div>
+                <div class="field-group" style="margin-bottom:0">
+                    <label class="field-label">Kategori</label>
+                    <select class="field-select" id="g_cat_${i}" style="font-size:0.8rem;padding:0.45rem 0.7rem">
+                        <option value="latihan" ${img.category==='latihan'?'selected':''}>🥋 Latihan</option>
+                        <option value="event" ${img.category==='event'?'selected':''}>📅 Event</option>
+                        <option value="prestasi" ${img.category==='prestasi'?'selected':''}>🏆 Prestasi</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function saveGaleri() {
+    const data = getGaleri().map((img, i) => ({
+        ...img,
+        title: document.getElementById('g_title_' + i).value.trim() || img.title,
+        description: document.getElementById('g_desc_' + i).value.trim() || img.description,
+        category: document.getElementById('g_cat_' + i).value
+    }));
+    localStorage.setItem('ts_gallery', JSON.stringify(data));
+    showToast('Data Galeri berhasil disimpan!');
+}
+
+function resetGaleri() {
+    if (!confirm('Reset data Galeri ke nilai awal?')) return;
+    localStorage.removeItem('ts_gallery');
+    renderGaleri();
+    showToast('Data Galeri direset ke default.');
+}
+
+// ===== JADWAL =====
+function getJadwal() {
+    try { return JSON.parse(localStorage.getItem('ts_jadwal')) || DEFAULT_JADWAL; }
+    catch { return DEFAULT_JADWAL; }
+}
+
+let jadwalData = [];
+
+function renderJadwal() {
+    jadwalData = getJadwal();
+    const tbody = document.getElementById('jadwalBody');
+    tbody.innerHTML = jadwalData.map((row, i) => `
+        <tr id="jrow_${i}">
+            <td><input type="text" value="${row.hari}" id="j_hari_${i}" placeholder="Senin"></td>
+            <td><input type="text" value="${row.waktu}" id="j_waktu_${i}" placeholder="08.00 - 10.00"></td>
+            <td><input type="text" value="${row.tempat}" id="j_tempat_${i}" placeholder="Nama tempat"></td>
+            <td><input type="text" value="${row.materi}" id="j_materi_${i}" placeholder="Materi latihan"></td>
+            <td><input type="text" value="${row.keterangan}" id="j_ket_${i}" placeholder="Keterangan"></td>
+            <td>
+                <button class="btn btn-danger btn-sm" onclick="deleteJadwalRow(${i})" title="Hapus baris">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function collectJadwal() {
+    return jadwalData.map((_, i) => ({
+        hari:       document.getElementById('j_hari_' + i)?.value.trim() || '',
+        waktu:      document.getElementById('j_waktu_' + i)?.value.trim() || '',
+        tempat:     document.getElementById('j_tempat_' + i)?.value.trim() || '',
+        materi:     document.getElementById('j_materi_' + i)?.value.trim() || '',
+        keterangan: document.getElementById('j_ket_' + i)?.value.trim() || ''
+    })).filter(r => r.hari);
+}
+
+function addJadwalRow() {
+    jadwalData = collectJadwal();
+    jadwalData.push({ hari: '', waktu: '', tempat: '', materi: '', keterangan: '' });
+    renderJadwal();
+    const inputs = document.querySelectorAll('#jadwalBody tr:last-child input');
+    if (inputs[0]) inputs[0].focus();
+}
+
+function deleteJadwalRow(i) {
+    jadwalData = collectJadwal();
+    jadwalData.splice(i, 1);
+    renderJadwal();
+}
+
+function saveJadwal() {
+    const data = collectJadwal();
+    if (data.length === 0) { showToast('Minimal satu baris jadwal diperlukan.', 'error'); return; }
+    localStorage.setItem('ts_jadwal', JSON.stringify(data));
+    jadwalData = data;
+    showToast('Jadwal Latihan berhasil disimpan!');
+}
+
+function resetJadwal() {
+    if (!confirm('Reset jadwal ke nilai awal?')) return;
+    localStorage.removeItem('ts_jadwal');
+    renderJadwal();
+    showToast('Jadwal direset ke default.');
+}
+
+// ===== KONTAK =====
+function getKontak() {
+    try { return { ...DEFAULT_KONTAK, ...(JSON.parse(localStorage.getItem('ts_kontak')) || {}) }; }
+    catch { return DEFAULT_KONTAK; }
+}
+
+function renderKontak() {
+    const d = getKontak();
+    document.getElementById('k_wa_number').value = d.wa_number;
+    document.getElementById('k_wa_name').value   = d.wa_name;
+    document.getElementById('k_wa_msg').value    = d.wa_msg;
+    document.getElementById('k_instagram').value = d.instagram;
+    document.getElementById('k_lokasi').value    = d.lokasi;
+    document.getElementById('k_maps').value      = d.maps_link;
+    document.getElementById('k_schedule_note').value = d.schedule_note;
+}
+
+function saveKontak() {
+    const d = {
+        wa_number:    document.getElementById('k_wa_number').value.trim(),
+        wa_name:      document.getElementById('k_wa_name').value.trim(),
+        wa_msg:       document.getElementById('k_wa_msg').value.trim(),
+        instagram:    document.getElementById('k_instagram').value.trim().replace('@', ''),
+        lokasi:       document.getElementById('k_lokasi').value.trim(),
+        maps_link:    document.getElementById('k_maps').value.trim(),
+        schedule_note: document.getElementById('k_schedule_note').value.trim()
+    };
+    localStorage.setItem('ts_kontak', JSON.stringify(d));
+    showToast('Kontak berhasil disimpan!');
+}
+
+function resetKontak() {
+    if (!confirm('Reset kontak ke nilai awal?')) return;
+    localStorage.removeItem('ts_kontak');
+    renderKontak();
+    showToast('Kontak direset ke default.');
+}
+
+// ===== INIT =====
+if (checkSession()) {
+    showAdmin();
+} else {
+    document.getElementById('loginPage').style.display = 'flex';
+}
+</script>
+</body>
+</html>

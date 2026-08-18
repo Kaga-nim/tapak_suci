@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Kegiatan - Tapak Suci UNPAM</title>
+    <meta name="description" content="Galeri foto kegiatan Ekstrakurikuler Tapak Suci Universitas Pamulang">
+
+    <link rel="icon" href="images/TSU.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary-color: #8B0000;
+            --secondary-color: #DC143C;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+            --accent-color: #ffd700;
+            --text-color: #333;
+            --text-light: #666;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.15);
+            --transition-normal: all 0.3s ease;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --sidebar-width: 280px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-color);
+            overflow-x: hidden;
+            padding-left: var(--sidebar-width);
+            background-color: var(--light-color);
+        }
+
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; font-weight: 600; }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            position: fixed;
+            top: 0; left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: linear-gradient(180deg, var(--dark-color) 0%, #1a2530 100%);
+            color: var(--white);
+            z-index: 1000;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .sidebar-header {
+            padding: var(--spacing-lg) var(--spacing-md);
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            flex-shrink: 0;
+        }
+
+        .sidebar-logo {
+            width: 80px; height: 80px;
+            margin: 0 auto var(--spacing-sm);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--accent-color);
+        }
+
+        .sidebar-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.2;
+        }
+
+        .sidebar-nav { flex: 1; padding: var(--spacing-md); overflow-y: auto; }
+
+        .nav-list { list-style: none; display: flex; flex-direction: column; gap: var(--spacing-xs); }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            color: var(--white);
+            text-decoration: none;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            transition: var(--transition-normal);
+            font-size: 1rem;
+            touch-action: manipulation;
+        }
+
+        .nav-link:hover { background: rgba(255,255,255,0.1); transform: translateX(5px); }
+        .nav-link.active { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); }
+        .nav-link i { font-size: 1.2rem; width: 24px; text-align: center; }
+
+        .sidebar-footer {
+            padding: var(--spacing-md);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .sidebar-footer small { font-size: 0.8rem; opacity: 0.7; }
+
+        /* ── MOBILE TOGGLE ── */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px; right: 20px;
+            width: 50px; height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: var(--shadow-lg);
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            touch-action: manipulation;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+            backdrop-filter: blur(3px);
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: var(--spacing-xl) 0 var(--spacing-lg);
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .page-header p {
+            opacity: 0.9;
+            font-size: clamp(1rem, 2vw, 1.1rem);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: var(--spacing-md);
+            transition: var(--transition-normal);
+            touch-action: manipulation;
+        }
+
+        .back-link:hover { color: var(--white); transform: translateX(-3px); }
+
+        /* ── GALLERY ── */
+        .gallery-section {
+            padding: var(--spacing-xl) 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: calc(100vh - 200px);
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-md); }
+
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--white);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: var(--spacing-xs) var(--spacing-lg);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            touch-action: manipulation;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139,0,0,0.2);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .gallery-item {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-normal);
+            background: var(--white);
+            cursor: pointer;
+        }
+
+        .gallery-item:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+
+        .gallery-img-container {
+            width: 100%; height: 230px;
+            overflow: hidden;
+            position: relative;
+            background: #f0f0f0;
+        }
+
+        .gallery-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover .gallery-img { transform: scale(1.08); }
+
+        .gallery-caption { padding: var(--spacing-md); }
+        .gallery-caption h3 { color: var(--primary-color); margin-bottom: 6px; font-size: 1.05rem; }
+        .gallery-caption p { color: var(--text-light); font-size: 0.9rem; line-height: 1.6; margin-bottom: var(--spacing-sm); }
+
+        .category-tag span {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: var(--primary-color);
+        }
+
+        .gallery-item[data-category="latihan"] .category-tag span { background: #2196F3; }
+        .gallery-item[data-category="event"] .category-tag span { background: #FF9800; }
+        .gallery-item[data-category="prestasi"] .category-tag span { background: #4CAF50; }
+
+        .gallery-img.loading { opacity: 0; }
+        .gallery-img.loaded { opacity: 1; transition: opacity 0.4s ease; }
+
+        /* ── LIGHTBOX ── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox-content {
+            max-width: 90%; max-height: 90%;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox-img { width: 100%; max-height: 65vh; object-fit: contain; display: block; }
+
+        .lightbox-info { padding: var(--spacing-md); text-align: center; }
+        .lightbox-info h3 { color: var(--primary-color); margin-bottom: 6px; }
+        .lightbox-info p { color: var(--text-light); font-size: 0.95rem; }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 1101;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-normal);
+            touch-action: manipulation;
+        }
+
+        .lightbox-close:hover { background: var(--secondary-color); transform: rotate(90deg); }
+
+        /* ── FOOTER ── */
+        footer {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #1a2530 100%);
+            color: var(--white);
+            padding: var(--spacing-lg) 0;
+            text-align: center;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        footer p { opacity: 0.75; font-size: 0.9rem; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            body { padding-left: 0; }
+            .sidebar { transform: translateX(-100%); width: 280px; transition: var(--transition-normal); }
+            .sidebar.sidebar-open { transform: translateX(0); }
+            .sidebar.sidebar-open .sidebar-title { opacity: 1 !important; visibility: visible !important; }
+            .mobile-menu-toggle { display: flex; }
+            .sidebar-overlay { display: block; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+            .sidebar-overlay.active { opacity: 1; visibility: visible; }
+
+            .gallery { grid-template-columns: repeat(2, 1fr); gap: var(--spacing-sm); }
+            .gallery-img-container { height: 150px; }
+            .gallery-caption { padding: var(--spacing-sm); }
+            .gallery-caption h3 { font-size: 0.9rem; }
+            .gallery-caption p { display: none; }
+            .container { padding: 0 var(--spacing-sm); }
+            .filter-btn { font-size: 0.85rem; padding: 6px 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="images/TSU.png" alt="Logo Tapak Suci" loading="lazy">
+            </div>
+            <h3 class="sidebar-title">Tapak Suci UNPAM</h3>
+        </div>
+        <div class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="index.html#home" class="nav-link"><i class="fas fa-home"></i><span>Beranda</span></a></li>
+                <li><a href="index.html#tentang" class="nav-link"><i class="fas fa-info-circle"></i><span>Tentang</span></a></li>
+                <li><a href="index.html#manfaat" class="nav-link"><i class="fas fa-heart"></i><span>Manfaat</span></a></li>
+                <li><a href="index.html#counter" class="nav-link"><i class="fas fa-trophy"></i><span>Prestasi</span></a></li>
+                <li><a href="gallery.html" class="nav-link active"><i class="fas fa-images"></i><span>Galeri</span></a></li>
+                <li><a href="index.html#jadwal" class="nav-link"><i class="fas fa-calendar-alt"></i><span>Jadwal</span></a></li>
+                <li><a href="index.html#kontak" class="nav-link"><i class="fas fa-user-plus"></i><span>Daftar</span></a></li>
+            </ul>
+        </div>
+        <div class="sidebar-footer">
+            <small>Tapak Suci UNPAM © <span id="currentYear">2024</span></small>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <a href="index.html#galeri" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
+                <h1>Galeri Kegiatan</h1>
+                <p>Dokumentasi lengkap kegiatan, latihan, dan prestasi Tapak Suci UNPAM</p>
+            </div>
+        </div>
+
+        <section class="gallery-section">
+            <div class="container">
+                <div class="gallery-controls">
+                    <button class="filter-btn active" data-filter="all"><i class="fas fa-th-large"></i> Semua</button>
+                    <button class="filter-btn" data-filter="latihan"><i class="fas fa-dumbbell"></i> Latihan</button>
+                    <button class="filter-btn" data-filter="event"><i class="fas fa-calendar-alt"></i> Event</button>
+                    <button class="filter-btn" data-filter="prestasi"><i class="fas fa-award"></i> Prestasi</button>
+                </div>
+                <div class="gallery" id="imageGallery"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© <span id="footerYear">2024</span> Ekstrakurikuler Tapak Suci Universitas Pamulang</p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Tutup"><i class="fas fa-times"></i></button>
+        <div class="lightbox-content">
+            <img class="lightbox-img" id="lightboxImg" src="" alt="">
+            <div class="lightbox-info">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxDesc"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const galleryImages = [
+            { id: 1, filename: "1.jpg", title: "Latihan Rutin Mingguan", description: "Anggota Tapak Suci berlatih teknik dasar Pencak Silat di Gedung Dakwah PDM Tangsel.", category: "latihan" },
+            { id: 2, filename: "2.jpg", title: "Latihan Bersama", description: "Latihan Akbar dengan Pondok Pesantren Al-Fatah, Lampung.", category: "event" },
+            { id: 3, filename: "3.jpg", title: "Ujian Kenaikan Tingkat", description: "Ujian Kenaikan Tingkat (UKT) yang dilaksanakan rutin untuk penilaian kemampuan anggota.", category: "event" },
+            { id: 4, filename: "4.jpg", title: "Latihan Kekuatan dan Stamina", description: "Latihan fisik untuk meningkatkan kekuatan, stamina, dan kelincahan anggota.", category: "latihan" },
+            { id: 5, filename: "5.jpg", title: "Prestasi di Kejuaraan Daerah", description: "Perolehan medali emas pada kejuaraan Pencak Silat tingkat regional.", category: "prestasi" },
+            { id: 6, filename: "6.jpg", title: "Latihan Teknik Senjata", description: "Pengenalan dan latihan teknik dasar menggunakan senjata tradisional silat.", category: "latihan" },
+            { id: 7, filename: "7.jpg", title: "Seminar Bela Diri", description: "Seminar tentang filosofi dan aplikasi bela diri dalam kehidupan sehari-hari.", category: "event" },
+            { id: 8, filename: "8.jpg", title: "Prestasi Nasional", description: "Penghargaan yang diraih di kejuaraan nasional Pencak Silat Tapak Suci.", category: "prestasi" },
+            { id: 9, filename: "9.jpg", title: "Latihan Kelenturan", description: "Latihan kelenturan tubuh untuk mendukung teknik bela diri yang efektif.", category: "latihan" },
+            { id: 10, filename: "10.jpg", title: "Kegiatan Sosial", description: "Anggota Tapak Suci berpartisipasi dalam kegiatan sosial kemasyarakatan.", category: "event" }
+        ];
+
+        const fallbackImages = [
+            'https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'
+        ];
+
+        // Gallery
+        const galleryContainer = document.getElementById('imageGallery');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        let currentFilter = 'all';
+
+        function getCategoryName(cat) {
+            return { latihan: 'Latihan', event: 'Event', prestasi: 'Prestasi' }[cat] || 'Lainnya';
+        }
+
+        function renderGallery(images) {
+            galleryContainer.innerHTML = '';
+            images.forEach(image => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.setAttribute('data-category', image.category);
+                item.innerHTML = `
+                    <div class="gallery-img-container">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E"
+                             data-src="images/${image.filename}" alt="${image.title}" class="gallery-img loading">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>${image.title}</h3>
+                        <p>${image.description}</p>
+                        <div class="category-tag"><span>${getCategoryName(image.category)}</span></div>
+                    </div>`;
+                item.addEventListener('click', () => openLightbox(image));
+                galleryContainer.appendChild(item);
+                lazyLoad(item.querySelector('.gallery-img'));
+            });
+        }
+
+        function lazyLoad(img) {
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        const i = e.target;
+                        i.onload = () => { i.classList.remove('loading'); i.classList.add('loaded'); };
+                        i.onerror = () => { i.src = fallbackImages[0]; i.classList.add('loaded'); };
+                        i.src = i.getAttribute('data-src');
+                        obs.unobserve(i);
+                    }
+                });
+            }, { rootMargin: '50px' });
+            obs.observe(img);
+        }
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentFilter = btn.dataset.filter;
+                filterButtons.forEach(b => b.classList.toggle('active', b === btn));
+                const filtered = currentFilter === 'all' ? galleryImages : galleryImages.filter(i => i.category === currentFilter);
+                renderGallery(filtered);
+            });
+        });
+
+        // Terapkan data dari admin panel (jika ada)
+        try {
+            const saved = localStorage.getItem('ts_gallery');
+            if (saved) {
+                const adminData = JSON.parse(saved);
+                galleryImages.splice(0, galleryImages.length, ...adminData);
+            }
+        } catch(e) {}
+
+        renderGallery(galleryImages);
+
+        // Lightbox
+        function openLightbox(image) {
+            document.getElementById('lightboxImg').src = `images/${image.filename}`;
+            document.getElementById('lightboxTitle').textContent = image.title;
+            document.getElementById('lightboxDesc').textContent = image.description;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+        document.getElementById('lightbox').addEventListener('click', e => { if (e.target === document.getElementById('lightbox')) closeLightbox(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Sidebar mobile
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const toggle = document.getElementById('mobileMenuToggle');
+
+        toggle.addEventListener('click', () => {
+            sidebar.classList.toggle('sidebar-open');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('sidebar-open') ? 'hidden' : '';
+        });
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('sidebar-open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Year
+        const yr = new Date().getFullYear();
+        document.getElementById('currentYear').textContent = yr;
+        document.getElementById('footerYear').textContent = yr;
+    </script>
+</body>
+</html>
